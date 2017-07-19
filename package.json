@@ -3,10 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "bootstrap": "^3.3.7",
     "react": "^15.6.1",
     "react-data-grid": "^2.0.53",
     "react-dom": "^15.6.1",
-    "react-instantsearch": "^4.0.8",
+    "react-instantsearch": "beta",
     "react-scripts": "1.0.10"
   },
   "scripts": {
@@ -14,5 +15,15 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.2.3",
+    "eslint": "^4.2.0",
+    "eslint-config-algolia": "^12.0.0",
+    "eslint-config-prettier": "^2.3.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-prettier": "^2.1.2",
+    "eslint-plugin-react": "^7.1.0",
+    "prettier": "^1.5.3"
   }
 }

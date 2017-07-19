@@ -1,32 +1,27 @@
-import React, { Component } from "react";
-import ReactDOM from "react-dom";
-import ReactDataGrid from "react-data-grid";
+import React, { Component } from 'react';
+import ReactDataGrid from 'react-data-grid';
 
-import {
-  Highlight,
-  Hits,
-  InstantSearch,
-  SearchBox
-} from "react-instantsearch/dom";
+import { InstantSearch, SearchBox, Configure } from 'react-instantsearch/dom';
+import 'bootstrap/dist/css/bootstrap.css';
+import { connectHits } from 'react-instantsearch/connectors';
 
 class HeaderForm extends Component {
   constructor() {
     super();
-    this.state = { appId: "", apiKey: "", indexName: "" };
+    this.state = { appId: '', apiKey: '', indexName: '' };
   }
 
   onChangeProps(e) {
-    let attributeName = e.target.name;
-    console.log("target name", e.target.name);
-    console.log("state", this.state);
+    const attributeName = e.target.name;
+    console.log('target name', e.target.name);
+    console.log('state', this.state);
     // To pass a variable in an object as a key: option1
     // Create an empty object then use the bracket notation
     // const obj = {};
     // obj[targetName] = e.target.value;
-    //Option 2: dynamic attribute
-    //this.setState(obj)
+    // Option 2: dynamic attribute
+    // this.setState(obj)
     this.setState({ [attributeName]: e.target.value }, () => {
-      console.log(this.props);
       this.props.onChange(this.state);
     });
   }
@@ -62,16 +57,40 @@ class HeaderForm extends Component {
   }
 }
 
-function Product({ hit }) {
-  return (
-    <div>
-      <Highlight attributeName="city" hit={hit} />
-    </div>
+const computeColumns = hits =>
+  Object.keys(hits[0]).reduce(
+    (columns, key) => {
+      if (typeof hits[0][key] !== 'object' && key !== 'objectID') {
+        return [...columns, { key, name: key, editable: true }];
+      }
+
+      return columns;
+    },
+    [{ key: 'objectID', name: 'objectID' }]
   );
-}
+
+const Hits = connectHits(
+  ({ hits }) =>
+    hits.length > 0
+      ? <ReactDataGrid
+          enableCellSelect={true}
+          columns={computeColumns(hits)}
+          rowGetter={index => hits[index]}
+          rowsCount={hits.length}
+          minHeight={500}
+          onGridRowsUpdated={() => {
+            console.log('test');
+          }}
+        />
+      : null
+);
 
 function Search() {
-  return <div className="container"><Hits hitComponent={Product} /></div>;
+  return (
+    <div className="container">
+      <Hits />
+    </div>
+  );
 }
 
 class App extends Component {
@@ -79,9 +98,9 @@ class App extends Component {
     super();
     // The state needs to be initialized
     this.state = {
-      appId: "latency",
-      apiKey: "6be0576ff61c053d5f9a3225e2a90f76",
-      indexName: "airbnb_instant_web_hack"
+      appId: 'latency',
+      apiKey: 'cc85a3bf7c1c2a91b72b3edcbbbc4801',
+      indexName: 'bestbuy_hack_is',
     };
   }
 
@@ -90,7 +109,7 @@ class App extends Component {
     if (
       this.state.appId.length === 0 ||
       this.state.indexName === 0 ||
-      this.state.apiKey !== "6be0576ff61c053d5f9a3225e2a90f76"
+      this.state.apiKey.length < 32
     ) {
       content = (
         <div>
@@ -104,10 +123,11 @@ class App extends Component {
           apiKey={this.state.apiKey}
           indexName={this.state.indexName}
         >
+          <Configure hitsPerPage={100} />
           <br />
           <hr />
           <br />
-          <SearchBox />
+          <SearchBox focusShortcuts={[]} />
           <br />
           <Search />
         </InstantSearch>
