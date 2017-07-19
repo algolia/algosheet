@@ -51,9 +51,6 @@ class HeaderForm extends Component {
             />
           </label>
         </form>
-        <div>App ID from state: {this.state.appId}</div>
-        <div>API Key from state: {this.state.apiKey}</div>
-        <div>Index Name from state: {this.state.indexName}</div>
       </div>
     );
   }
