@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 
-import { Hits, InstantSearch } from "react-instantsearch/dom";
+import { Hits, InstantSearch, SearchBox } from "react-instantsearch/dom";
 
 class HeaderForm extends Component {
   constructor() {
@@ -93,6 +93,7 @@ class App extends Component {
           indexName={this.state.indexName}
         >
           <hr />
+          <SearchBox />
           <Search />
 
         </InstantSearch>
