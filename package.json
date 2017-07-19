@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "react": "^15.6.1",
+    "react-data-grid": "^2.0.53",
     "react-dom": "^15.6.1",
     "react-instantsearch": "^4.0.8",
     "react-scripts": "1.0.10"

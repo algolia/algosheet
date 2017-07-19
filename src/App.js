@@ -1,7 +1,13 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
+import ReactDataGrid from "react-data-grid";
 
-import { Hits, InstantSearch, SearchBox } from "react-instantsearch/dom";
+import {
+  Highlight,
+  Hits,
+  InstantSearch,
+  SearchBox
+} from "react-instantsearch/dom";
 
 class HeaderForm extends Component {
   constructor() {
@@ -56,17 +62,26 @@ class HeaderForm extends Component {
   }
 }
 
-function Search() {
-  return <div className="container"><Hits /></div>;
+function Product({ hit }) {
+  return (
+    <div>
+      <Highlight attributeName="city" hit={hit} />
+    </div>
+  );
 }
+
+function Search() {
+  return <div className="container"><Hits hitComponent={Product} /></div>;
+}
+
 class App extends Component {
   constructor() {
     super();
     // The state needs to be initialized
     this.state = {
-      appId: "",
-      apiKey: "",
-      indexName: ""
+      appId: "latency",
+      apiKey: "6be0576ff61c053d5f9a3225e2a90f76",
+      indexName: "airbnb_instant_web_hack"
     };
   }
 
@@ -89,10 +104,12 @@ class App extends Component {
           apiKey={this.state.apiKey}
           indexName={this.state.indexName}
         >
+          <br />
           <hr />
+          <br />
           <SearchBox />
+          <br />
           <Search />
-
         </InstantSearch>
       );
     }
