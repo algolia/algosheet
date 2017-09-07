@@ -1,11 +1,15 @@
 **NOTE FROM AUTHORS**
+
 This is a simple experiment plugging an Algolia index to [react-data-grid](https://github.com/adazzle/react-data-grid).
 It's not finished, has a lot of flaws BUT it runs and you can read the code.
 
 Built by @marielaures and @vvo as part of the #1 InstantSearch hack day at Algolia.
 
 Read more on our blog post about this awesome day: 
+
 **/NOTE FROM AUTHORS**.
+
+<hr/>
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
